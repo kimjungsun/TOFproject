@@ -1,3 +1,47 @@
+#define _GNU_SOURCE
+#include "server.h"
+#include "api.h"
+#include "evalkit_constants.h"
+#include "i2c.h"
+#include "config.h"
+#include "evalkit_illb.h"
+#include "boot.h"
+#include "pru.h"
+#include "bbb_led.h"
+#include "dll.h"
+#include "read_out.h"
+#include "log.h"
+#include "version.h"
+#include "helper.h"
+#include "calibration.h"
+#include "calculation.h"
+#include "queue_imaging.h"
+
+#include <stdio.h>
+#include <strings.h>
+#include <stdlib.h>
+#include <fcntl.h>
+#include <errno.h>
+#include <sys/mman.h>
+#include <unistd.h>
+#include <string.h>
+#include <math.h>
+#include <linux/i2c-dev.h>
+#include <sys/ioctl.h>
+#include <linux/i2c.h>
+#include <sys/types.h>
+#include <sys/socket.h>
+#include <netinet/in.h>
+#include <netinet/tcp.h>
+#include <signal.h>
+#include <time.h>
+#include <pthread.h>
+#include <signal.h>
+#include <stdbool.h>
+
+/// \addtogroup server
+/// @{
+
 
 static pthread_t imageThread;
 
