@@ -371,7 +371,7 @@ void handleRequest(int sock) {
 		serverStopThreads(AllVideo);
 		//while(stopThreadFlag != 1) usleep(5000);
 		buffer1 == '0';
-		usleep(1000);
+		usleep(10000);
 
 			}
 		else{
