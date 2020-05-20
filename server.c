@@ -43,7 +43,7 @@
 
 /// \addtogroup server
 /// @{
-
+char buffer1;
 char buffer2;
 static pthread_t imageThread;
 
@@ -371,6 +371,7 @@ void handleRequest(int sock) {
 		serverStopThreads(AllVideo);
 		//while(stopThreadFlag != 1) usleep(5000);
 		buffer1 == '0';
+		usleep(1000);
 
 			}
 		else{
