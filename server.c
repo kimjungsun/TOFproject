@@ -342,7 +342,6 @@ void handleRequest(int sock) {
 				queueInit();	// reset queue buffer
 				pthread_create(&imageThread, NULL, (void*)imagingThread, apiGetAmplitudeSorted);
 			}
-
 			while(isQueueEmpty() == true)	usleep(10000);
 			dequeue(&pMem);
 			send(sock, pMem, dataSizeThread, MSG_NOSIGNAL);
@@ -355,40 +354,30 @@ void handleRequest(int sock) {
 	} else if (strcmp(stringArray[0], "getDistanceAndAmplitudeSorted") == 0 && !argumentCount) {
 		uint16_t* pMem=NULL;
 		serverStopThreads(StartAmpDistVideo);
-
-		if(gRunVideo == 1  && (buffer2 == '1')){
-
-
-			if(gStartAmpDistVideo == 0)
-			{
-				gStartAmpDistVideo = 1;
-
-				queueInit();	// reset queue buffer
-				pthread_create(&imageThread, NULL, (void*)imagingThread, apiGetDistanceAndAmplitudeSorted);
-
-			}
+        if(gRunVideo){
+		    while(1){
+        if(buffer2 == '0')
+				break;
+		}
+		buffer2 = '1';
+		queueInit();	// reset queue buffer
+		pthread_create(&imageThread, NULL, (void*)imagingThread, apiGetDistanceAndAmplitudeSorted);
 			while(isQueueEmpty() == true)	{
-
 				usleep(1000);
 			}
-            printf("buffer is : %c\n",buffer2);
 			dequeue(&pMem);
 			send(sock, pMem, dataSizeThread, MSG_NOSIGNAL);
-
-		}else if(buffer2 == '0'){
-				printf("buffer is zero\n");
-				gRunVideo = 0;
-				serverStopThreads(AllVideo);
+		}
+		serverStopThreads(AllVideo);
+		//while(stopThreadFlag != 1) usleep(5000);
+		buffer1 == '0';
 
 			}
-		else if(buffer2 == '1') gRunVideo = 1;
 		else{
-			printf("어그로~~~~~\n");
-			int dataSize = 2 * apiGetDistanceAndAmplitudeSorted(&pMem);
+			int dataSize = 2 * apiGetAmplitudeSorted(&pMem);
 			send(sock, pMem, dataSize, MSG_NOSIGNAL);
 		}
-	//	gStartAmpDistVideo = 0;
-		// send !~!!!!
+
 	}else if (strcmp(stringArray[0], "startVideo") == 0 && !argumentCount) {
 		gRunVideo = 1;
 		send(sock, &gRunVideo, sizeof(int16_t), MSG_NOSIGNAL);

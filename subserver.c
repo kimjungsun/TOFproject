@@ -39,9 +39,8 @@ void *thr_write(void *arg){
 	int sock = (int)*((int *)arg);
     char send_meg = '0';
 	while(1){
-		if(gStartAmpDistVideo == 0)
+		if(buffer1 == '0')
 		{
-	       printf(" gStartAmpDistVideo is 0 now!\n");
            write(sock,&send_meg,sizeof(send_meg));
 		}
 	}
@@ -54,9 +53,7 @@ void *thr_read(void *arg){
 
 	while(1){
 	if(read(sock,&recv, sizeof(recv))!=0)
-            printf("Recieve from server:%c\n" ,recv);
 	buffer2 = recv ;
-	printf("BUFFER : %c\n",buffer2);
 	}
 	printf(" 쓰레드 파괴됨...\n");
 
