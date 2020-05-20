@@ -1,4 +1,16 @@
-
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <unistd.h>
+#include <arpa/inet.h>
+#include <sys/socket.h>
+#include<pthread.h>
+void error_handling(char *message);
+void *thr_read(void *arg);
+void *thr_write(void *arg);
+char buffer1 = '0';   // 상대는 각각 1과 0으로 
+char buffer2 ='1';
+void *startSubserver(void *arg){
         int status ;
         pthread_t tid[5];
         int state ; // pthread_join parameter
@@ -37,11 +49,10 @@
 void *thr_write(void *arg){
 	printf("thr_write initialized\n");
 	int sock = (int)*((int *)arg);
-    char send_meg = '0';
 	while(1){
 		if(buffer1 == '0')
 		{
-           write(sock,&send_meg,sizeof(send_meg));
+           write(sock,&buffer1,sizeof(buffer1));
 		}
 	}
 
