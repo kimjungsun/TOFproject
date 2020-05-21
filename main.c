@@ -21,6 +21,7 @@ int main(int argc, char* argv[]) {
 	int deviceAddress = boot();
 	printf("deviceAddress confirmed = 0x%x\n", deviceAddress);
 
+	
 	illuminationDisable();
 	printf(">>> configSetDeviceAddress \n");
 	configSetDeviceAddress(deviceAddress);
